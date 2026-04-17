@@ -148,3 +148,54 @@ func UpdateTask(c *gin.Context) {
 
 	c.JSON(200, gin.H{"message": "updated"})
 }
+func DeleteTask(c *gin.Context) {
+
+	id := c.Param("id")
+
+	objID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		c.JSON(400, gin.H{"error": "invalid id"})
+		return
+	}
+
+	result, err := taskCollection.DeleteOne(
+		context.Background(),
+		bson.M{"_id": objID},
+	)
+
+	if err != nil {
+		c.JSON(500, gin.H{"error": "delete failed"})
+		return
+	}
+
+	if result.DeletedCount == 0 {
+		c.JSON(404, gin.H{"error": "task not found"})
+		return
+	}
+
+	c.JSON(200, gin.H{"message": "deleted"})
+}
+func GetTaskByID(c *gin.Context) {
+
+	id := c.Param("id")
+
+	objID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		c.JSON(400, gin.H{"error": "invalid id"})
+		return
+	}
+
+	var task model.Task
+
+	err = taskCollection.FindOne(
+		context.Background(),
+		bson.M{"_id": objID},
+	).Decode(&task)
+
+	if err != nil {
+		c.JSON(404, gin.H{"error": "task not found"})
+		return
+	}
+
+	c.JSON(200, task)
+}
