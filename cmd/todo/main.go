@@ -7,6 +7,11 @@ import (
 )
 
 func main() {
+
+	connectDB()
+
+	handlers.SetCollection(taskCollection)
+
 	r := gin.Default()
 
 	r.GET("/tasks", handlers.GetTasks)
