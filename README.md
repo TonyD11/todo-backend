@@ -16,4 +16,4 @@ It allows users to create, read, update, and delete tasks.
 ## 🚀 How to Run the Project
 
 ```bash
-go run ./cmd
+go run ./cmd/todo
