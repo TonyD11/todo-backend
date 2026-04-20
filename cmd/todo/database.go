@@ -20,5 +20,5 @@ func connectDB() {
 
 	taskCollection = client.Database("todo_db").Collection("tasks")
 
-	log.Println("MongoDB connected ✅")
+	log.Println("MongoDB connected ")
 }

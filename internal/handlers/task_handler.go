@@ -12,15 +12,12 @@ import (
 	"todo-backend/internal/model"
 )
 
-// ✅ Global collection (set from main.go)
 var taskCollection *mongo.Collection
 
-// ✅ Setter function to inject DB collection
 func SetCollection(col *mongo.Collection) {
 	taskCollection = col
 }
 
-// ✅ CREATE TASK
 func AddTask(c *gin.Context) {
 
 	var newTask model.Task
@@ -64,7 +61,6 @@ func AddTask(c *gin.Context) {
 	})
 }
 
-// ✅ GET ALL TASKS (with filters)
 func GetTasks(c *gin.Context) {
 
 	var tasks []model.Task
@@ -98,7 +94,6 @@ func GetTasks(c *gin.Context) {
 	c.JSON(200, tasks)
 }
 
-// ✅ UPDATE TASK
 func UpdateTask(c *gin.Context) {
 
 	id := c.Param("id")
